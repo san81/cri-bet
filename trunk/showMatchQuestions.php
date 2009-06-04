@@ -12,6 +12,7 @@ $result_set = mysql_fetch_array($result_set_obj);
 $i=0;
 ?>
 <form name="userPredictions">
+<input type="hidden" name="matchId" value="<?php echo $matchId; ?>"/>
 <table border="0">
 <?php
 while($i<mysql_num_rows($result_set_obj)){
@@ -43,7 +44,7 @@ while($i<mysql_num_rows($result_set_obj)){
         </tr>
         <tr>
             <td>&nbsp;&nbsp;<b>Betting Amt Rs:</b>
-                <select>
+                <select name="bet<?php echo $result_set[0]; ?>">
                     <option>10</options>
                     <option>100</options>
                     <option>1000</options>
