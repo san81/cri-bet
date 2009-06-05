@@ -20,8 +20,7 @@ while($i<mysql_num_rows($result_set_obj)){
     $betAmt = $_POST['bet'.$qid];
     $insert_query = "insert into user_bettings
         (match_id,qid,user_id,user_choice,bet_amount)
-     values ($matchId,$qid,$userID,$userChoice,$betAmt)";
-    echo $insert_query;
+     values ($matchId,$qid,$userID,$userChoice,$betAmt)";    
     mysql_query($insert_query);
 
     $i++;
