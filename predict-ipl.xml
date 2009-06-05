@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : predict-ipl.xml.xml
+    Created on : June 5, 2009, 1:59 PM
+    Author     : santosh
+    Description:
+        Purpose of the document follows.
+-->
+
+<Module>
+  <ModulePrefs title="Can India retain the T20 Championship ?"
+	description="App for users opinion."
+	thumbnail="http://www.apeveryday.com/ipl/T20logo.jpg"
+	screenshot="http://www.apeveryday.com/ipl/T20logo.jpg"
+	author_email="santhosh.gandhe@gmail.com"
+	author="Santhosh Gandhe">
+  <Require feature="opensocial-0.8"/>
+  <Require feature="opensocial-data"/>
+  <Require feature="opensocial-templates">
+    <Param name="process-on-server">true</Param>
+  </Require>
+  <Require feature="opensocial-data"/>
+  <Locale>EN</Locale>
+</ModulePrefs>
+  <Content type="html" view="profile"><![CDATA[
+
+	<!-- ALm6fM1ZLQtVkdZeORj7_53K_q1WnP_3dRvCKZxfPhaM4zaNik5d5EvogJkZ0Js-y5FHSUeZp04bdTCx2Yv1v3l-kH3exQGNNl3ij8p87zOoxBIh1ePnz5hQIsRWMpGmDh9mxjxFuTrb -->
+  <script type="text/os-data" xmlns:os="http://ns.opensocial.org/2008/markup">
+  <os:ViewerRequest key="viewer" fields="name,gender"/>
+</script>
+<script type="text/os-template"  xmlns:os="http://ns.opensocial.org/2008/markup">
+  <span class="${viewer.gender}"><br><b>Welcome ${viewer.name.givenName}</b></span>
+</script>
+
+  <span id="main">
+
+      <span id='status' style="font-size:12px;color:green"></span>
+      <p/>
+      <p><span id="viewerName" style="font-size:12px;color:red"></span></p>
+      <b>Can India retian T20 World Cup ? </b><br/>
+      <i>What is your opinion?</i><br/>
+	  <table border=0>
+	  <tr>
+		<td>
+			<input type='radio' id='answer' name='answer' value='YES' CHECKED ></input>
+			<img src="http://www.apeveryday.com/ipl/thumbsup.jpg">
+		</td>
+		<td>
+			<input type='radio' id='answer' name='answer' value='NO' ></input>
+			<img src="http://www.apeveryday.com/ipl/thumbsdown.jpg">
+		</td>
+	  </tr>
+	  <tr>
+		<td colspan=2>
+			<img src="http://www.apeveryday.com/ipl/team.jpg">
+		</td>
+		<!--<td>
+				<input type='radio' id='answer' name='answer' value='csk' CHECKED ></input>
+				<img src="http://www.apeveryday.com/ipl/icon-csk-sml.png">
+		</td>
+		<td>
+				<input type='radio' id='answer' name='answer' value='dc' CHECKED ></input>
+				<img src="http://www.apeveryday.com/ipl/icon-dc-sml.png">
+		</td>-->
+	</tr>
+	<!--  <tr>
+		<td>
+				<input type='radio' id='answer' name='answer' value='dd' CHECKED ></input>
+				<img src="http://www.apeveryday.com/ipl/icon-dd-sml.png">
+		</td>
+		<td>
+				<input type='radio' id='answer' name='answer' value='kxip' CHECKED ></input>
+				<img src="http://www.apeveryday.com/ipl/icon-kxip-sml.png">
+		</td>
+		<td>
+				<input type='radio' id='answer' name='answer' value='rr' CHECKED ></input>
+				<img src="http://www.apeveryday.com/ipl/icon-rr-sml.png">
+		</td>
+	 </tr>	 -->
+     <tr>
+		<td colspan=3>
+			<input type='button' value='Submit' onClick='savePrediction();' />
+		</td>
+	 </tr>
+	 <tr>
+		<td colspan=2>
+			<span id='friendNames'>  </span>
+			<span id='previousePredictions'></span>
+		</td>
+	 </tr>
+	</table>
+    <p/>
+    <br/>
+	<osx:NavigateToApp>Predict your answer</osx:NavigateToApp>
+    <input type="hidden" id="viewerId" />
+    <p/>
+    <span id='allPredictions'></span>
+  </span>
+]]></Content>
+<Content type="html" view="canvas"><![CDATA[
+<script type="text/javascript"
+src="http://www.apeveryday.com/cri-bet/scripts/predict-ipl.js">
+</script>
+<script type="text/os-data" xmlns:os="http://ns.opensocial.org/2008/markup">
+  <os:ViewerRequest key="viewer" fields="name,gender"/>
+</script>
+<script type="text/os-template"  xmlns:os="http://ns.opensocial.org/2008/markup">
+  <span class="${viewer.gender}"><br><b>Welcome ${viewer.name.givenName}</b></span>
+  <span id="viewerOrkutId" style="visibility:hidden">${viewer.id}</span>
+  <span id="viewerOpensocialId" style="visibility:hidden">${viewer.id}</span>
+  <span id="viewerName" style="visibility:hidden">${viewer.name.givenName}</span>
+</script>
+<div id='hiddenDiv'>
+    <form name='iplPrediction'>
+        <input type="hidden" id="viewerId" />
+    </form>
+</div>
+  <div id="main">
+  </div>
+]]></Content>
+
+</Module>
+
