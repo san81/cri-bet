@@ -186,13 +186,12 @@ function showInitialScreen(){
     params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.TEXT;
     params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = 1;
     var url = "http://www.apeveryday.com/cri-bet/index.php";
-    gadgets.io.makeRequest(url, main, params);
+    gadgets.io.makeRequest(url, showCurrentStatsInDiv, params);
 }
 function showCurrentStatsInDiv(obj){
-    document.getElementById('currentStats').innerHTML=obj.text;
+    document.getElementById('main').innerHTML=obj.text;
 }
-function postActivity() {
-    var title = ' said ' + giveUserChoosenAnswer()+" for India to retain the T20 Championship. What is your opinion?";
+function postActivity(title) {
     var params = {};
     params[opensocial.Activity.Field.TITLE] = title;
     params[opensocial.Activity.Field.BODY] = 'Visit this app';
@@ -209,14 +208,16 @@ function saveInRemoteDB(){
     var viewerOrkutId = document.getElementById('viewerOrkutId').innerHTML;
     var viewerOpensocialId = document.getElementById('viewerOpensocialId').innerHTML;
     var viewerName = document.getElementById('viewerName').innerHTML;
-    //http://www.apeveryday.com/oApp/savePrediction.php?viewerName="+viewerName+"&prediction="+giveUserChoosenAnswer()+"&viewerID="+viewerId;
+    if(viewerOrkutId==''){
+        document.getElementById('statusMsg').innerHTML="Please Add this app to make your Bet";
+        return;
+    }
     var params = {};
     params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.NONE;
     params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
     var postData = {
-        viewerID:viewerOrkutId,
-        viewerOpensocialId:viewerOpensocialId,
-        prediction:giveUserChoosenAnswer(),
+        orkutId:viewerOrkutId,
+        openSocialId:viewerOpensocialId,
         viewerName:viewerName
     };
 
@@ -225,21 +226,14 @@ function saveInRemoteDB(){
     params[gadgets.io.RequestParameters.POST_DATA] = postData;
     params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.TEXT;
     params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = 1;
-    var url = "http://www.apeveryday.com/oApp/savePrediction.php";
+    var url = "http://www.apeveryday.com/cri-bet/saveUser.php";
 
-    gadgets.io.makeRequest(url, response, params);
+    gadgets.io.makeRequest(url, userSavedResponse, params);
 }
-function response(obj){
-    //call to show the graph
-    var params = {};
-    params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.NONE;
-    params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
-    params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.DOM;
-    params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = 1;
-    var url = "http://www.apeveryday.com/chat.php";
+function userSavedResponse(obj){
+    document.getElementById('statusMsg').innerHTML=obj.text;
+}
 
-    gadgets.io.makeRequest(url, showGraph, params);
-}
 function showGraph(obj){
     document.getElementById('main').innerHTML=obj.text;
 }
@@ -260,10 +254,12 @@ function responseUserOrkutID(data) {
     if (result.length == 2) {
         var uid = result[1]; // uid now contains the viewer's orkut UID
         document.getElementById('viewerOrkutId').innerHTML=uid;
+        saveInRemoteDB();
     } else {
 /* there was a problem getting the UID */
-}
+ }
 };
+
 
 gadgets.util.registerOnLoadHandler(init);
 var prevSelection=-1;
@@ -274,4 +270,59 @@ function changeColor(tdCtrl,index){
     if(index<2)
         document.iplPrediction.answer[index].checked= true;
     prevSelection=index;
+}
+
+function onMatchClick(matchId){
+    var params = {};
+    params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.NONE;
+    params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
+    var postData = {
+        matchId:matchId
+    };
+
+    postData = gadgets.io.encodeValues(postData);
+
+    params[gadgets.io.RequestParameters.POST_DATA] = postData;
+    params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.TEXT;
+    params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = 1;
+    var url = "http://www.apeveryday.com/cri-bet/showMatchQuestions.php";
+
+    gadgets.io.makeRequest(url, showMatchQuestions, params);
+	//sendGetRequest('showMatchQuestions.php?matchId='+matchId,'matchQuestions','');
+}
+function showMatchQuestions(obj){
+    document.getElementById('matchQuestions').innerHTML=obj.text;
+}
+
+function submitUserBet(formCtrl){
+    formCtrl.orkutId.value=document.getElementById('viewerOrkutId').innerHTML;
+     var params = {};
+    params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.NONE;
+    params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
+    
+    alert(getRequestBody(formCtrl));
+    params[gadgets.io.RequestParameters.POST_DATA] = getRequestBody(formCtrl);
+    params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.TEXT;
+    params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = 1;
+    var url = "http://www.apeveryday.com/cri-bet/saveUserPredictions.php";
+
+    gadgets.io.makeRequest(url, afterUserBetSubmit, params);
+    // sendPostRequest('saveUserPredictions.php','matchQuestions',formCtrl,'');
+}
+function afterUserBetSubmit(obj){
+    var formCtrl=document.userPredictions;
+    var team1,team2;
+    if(formCtrl.q1[0].checked==true){
+         team1=formCtrl.q1[0].nextSibling.data;
+         team2=formCtrl.q1[1].nextSibling.data;
+    }
+     else{
+        team1=formCtrl.q1[1].nextSibling.data;
+        team2=formCtrl.q1[0].nextSibling.data;
+     }
+
+    var activityStr=" has bet "+formCtrl.bet1.value+" for "+team1+" to win over "+team2;
+    alert(activityStr);
+    postActivity(activityStr);
+    document.getElementById('matchQuestions').innerHTML=obj.text;
 }

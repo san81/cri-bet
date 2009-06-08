@@ -6,13 +6,15 @@
 
 include('connect.php');
 
-$orkutId = $_GET['orkutId'];
-$openSocialId = $_GET['openSocialId'];
-$name = $_GET['name'];
-$datetimeVal = date("Y-m-d H:i:s",time());
+$orkutId = $_POST['orkutId'];
+$openSocialId = $_POST['openSocialId'];
+$name = $_POST['viewerName'];
 
-mysql_query("insert into users
-        (orkut_id,opensocial_id,name,register_time)
-        values ('$orkutId','$openSocialId','$name','$datetimeVal')");
+$result_set_obj = mysql_query("select * from users where orkut_id = '$orkutId'");
+if(mysql_num_rows($result_set_obj)==0){
+    mysql_query("insert into users
+        (orkut_id,opensocial_id,name)
+        values ('$orkutId','$openSocialId','$name')");
+}
 
 ?>
