@@ -11,12 +11,8 @@
 	function loadThis(pageName){
 		sendGetRequest(pageName,'body','');
 	}
-	function onMatchClick(matchId){
-		sendGetRequest('showMatchQuestions.php?matchId='+matchId,'matchQuestions','');
-	}
-    function submitUserBet(formCtrl){
-        sendPostRequest('saveUserPredictions.php','matchQuestions',formCtrl,'');
-    }
+	
+    
 </script>
 
 <table border=0 width="600" height="400">

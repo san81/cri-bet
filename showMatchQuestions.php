@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -25,7 +25,7 @@ while($i<mysql_num_rows($result_set_obj)){
         $j=0;
         ?>
         <tr ><td class="question"><b><?php echo $result_set[1]; ?></b></td></tr>
-         <tr> <td> 
+         <tr> <td>
            <table border="0"> <tr>
         <?php while($j<mysql_num_rows($choice_result_set_obj)){
              // to display the choices in two rows
@@ -38,7 +38,7 @@ while($i<mysql_num_rows($result_set_obj)){
          <?php $choice_result_set = mysql_fetch_array($choice_result_set_obj);
             $j++;
         } ?>
-        </tr>        
+        </tr>
         </table>
         </td>
         </tr>

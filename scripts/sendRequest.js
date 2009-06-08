@@ -48,17 +48,27 @@ function sendPostRequest(reqUrl,spanID,oForm,fun_to_call) {
 
 	function getRequestBody(oForm) {
             var aParams = new Array();
-           
+               var sParam;
+               var radioParam;
             for (var i=0 ; i < oForm.elements.length; i++) {
-                var sParam = encodeURIComponent(oForm.elements[i].name);
+                
+				if(oForm.elements[i].type=='radio'){   
+						if(oForm.elements[i].checked==true){
+                            radioParam = encodeURIComponent(oForm.elements[i].name);
+                            radioParam += "=";
+							radioParam += encodeURIComponent(oForm.elements[i].value);
+                            aParams.push(radioParam);
+                        }				
+
+				}else {
+                sParam = encodeURIComponent(oForm.elements[i].name);
                 sParam += "=";
                 sParam += encodeURIComponent(oForm.elements[i].value);
                 aParams.push(sParam);
-            } 
-            
-            return aParams.join("&");        
+              }
+            }            
+            return aParams.join("&");
         }
-        
 
 
    function sendGetRequest(reqUrl,spanID,fun_to_call) {

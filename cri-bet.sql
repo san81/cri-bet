@@ -1,11 +1,10 @@
 create database cri_bet;
 use cri_bet;
 create table users(
-user_id integer auto_increment primary key,
-orkut_id varchar(100) unique,
+orkut_id varchar(100) primary key,
 opensocial_id varchar(100) unique,
 name varchar(200),
-register_time datetime
+register_time TIMESTAMP DEFAULT NOW()
 )ENGINE=INNODB;
 
 create table teams(
@@ -47,12 +46,13 @@ FOREIGN KEY(match_id) REFERENCES matches(match_id) ON UPDATE CASCADE
 create table user_bettings(
 match_id integer,
 qid integer,
-user_id integer,
+user_id varchar(100),
 user_choice varchar(100),
 bet_amount integer(6),
+bet_time TIMESTAMP DEFAULT NOW(),
 FOREIGN KEY(match_id) REFERENCES matches(match_id) ON UPDATE CASCADE,
 FOREIGN KEY(qid) REFERENCES questions(qid) ON UPDATE CASCADE,
-FOREIGN KEY(user_id) REFERENCES users(user_id) ON UPDATE CASCADE,
+FOREIGN KEY(user_id) REFERENCES users(orkut_id) ON UPDATE CASCADE,
 primary key (match_id,qid,user_id)
 )ENGINE=INNODB;
 
