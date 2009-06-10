@@ -176,15 +176,22 @@ function setStatus(data) {
 function init() {
     //requestViewerAndFriends();
     //displayGiftOptions();
-    requestUserOrkutID();
-    showInitialScreen();
+    requestUserOrkutID();   
 };
 function showInitialScreen(){
+     var viewerOrkutId = document.getElementById('viewerOrkutId').innerHTML;
     var params = {};
     params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.NONE;
     params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
     params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.TEXT;
     params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = 1;
+    var postData = {
+        orkutId:viewerOrkutId
+    };
+
+    postData = gadgets.io.encodeValues(postData);
+
+    params[gadgets.io.RequestParameters.POST_DATA] = postData;
     var url = "http://www.apeveryday.com/cri-bet/index.php";
     gadgets.io.makeRequest(url, showCurrentStatsInDiv, params);
 }
@@ -202,7 +209,7 @@ function postActivity(title) {
     params[opensocial.Activity.Field.MEDIA_ITEMS] = mediaItems;
     var activity = opensocial.newActivity(params);
     opensocial.requestCreateActivity(activity, opensocial.CreateActivityPriority.HIGH, function() {});
-    saveInRemoteDB();
+    
 }
 function saveInRemoteDB(){
     var viewerOrkutId = document.getElementById('viewerOrkutId').innerHTML;
@@ -232,6 +239,7 @@ function saveInRemoteDB(){
 }
 function userSavedResponse(obj){
     document.getElementById('statusMsg').innerHTML=obj.text;
+    showInitialScreen();
 }
 
 function showGraph(obj){
@@ -300,7 +308,7 @@ function submitUserBet(formCtrl){
     params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.NONE;
     params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
     
-    alert(getRequestBody(formCtrl));
+    //alert(getRequestBody(formCtrl));
     params[gadgets.io.RequestParameters.POST_DATA] = getRequestBody(formCtrl);
     params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.TEXT;
     params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = 1;
@@ -309,20 +317,22 @@ function submitUserBet(formCtrl){
     gadgets.io.makeRequest(url, afterUserBetSubmit, params);
     // sendPostRequest('saveUserPredictions.php','matchQuestions',formCtrl,'');
 }
+function trimStr(strText){
+    return strText.replace(new RegExp("^([\\s]+)|([\\s]+)$", "gm"), "")
+}
 function afterUserBetSubmit(obj){
     var formCtrl=document.userPredictions;
     var team1,team2;
     if(formCtrl.q1[0].checked==true){
-         team1=formCtrl.q1[0].nextSibling.data;
-         team2=formCtrl.q1[1].nextSibling.data;
+         team1=trimStr(formCtrl.q1[0].nextSibling.data);
+         team2=trimStr(formCtrl.q1[1].nextSibling.data);
     }
      else{
-        team1=formCtrl.q1[1].nextSibling.data;
-        team2=formCtrl.q1[0].nextSibling.data;
+        team1=trimStr(formCtrl.q1[1].nextSibling.data);
+        team2=trimStr(formCtrl.q1[0].nextSibling.data);
      }
 
-    var activityStr=" has bet "+formCtrl.bet1.value+" for "+team1+" to win over "+team2;
-    alert(activityStr);
+    var activityStr=" has bet "+formCtrl.bet1.value+" for "+team1+" to win over "+team2;    
     postActivity(activityStr);
     document.getElementById('matchQuestions').innerHTML=obj.text;
 }
