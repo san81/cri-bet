@@ -1,11 +1,11 @@
 
 <?php
 include('connect.php');
-$todays_date = date("Y-m-d h:m:s");
+$todays_date = date("Y-m-d h:m:s"); 
 $query = "SELECT * FROM matches where schedule_time>'$todays_date'";
-echo $query;
+
 $result_set_obj = mysql_query($query);
-$result_set = mysql_fetch_array($result_set_obj);
+$result_set = mysql_fetch_array($result_set_obj);  
 ?>
 <table border=0 height="100%" width="100%">
 	<tr>
@@ -20,7 +20,7 @@ $result_set = mysql_fetch_array($result_set_obj);
 					<?php echo $result_set[1]." Vs " .$result_set[2] ; ?>
 					</a>
 				</li>
-			<?php
+			<?php 
 			 $i++;
 			 $result_set = mysql_fetch_array($result_set_obj);
 			} ?>
