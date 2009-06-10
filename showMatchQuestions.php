@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 include('connect.php');
-$matchId = $_GET['matchId'];
+$matchId = $_POST['matchId'];
 
 $query = "SELECT * FROM questions";
 $result_set_obj = mysql_query($query);
@@ -33,7 +33,11 @@ while($i<mysql_num_rows($result_set_obj)){
          ?>
             <td>
                 <input  type="radio" name="q<?php echo $result_set[0]; ?>" value="<?php echo $choice_result_set[0]; ?>"/>
-                <?php echo $choice_result_set[3]; ?>
+                <?php echo $choice_result_set[3];
+                    if($result_set[0]==1){
+                        echo "<img src='http://www.apeveryday.com/cri-bet/teams/$choice_result_set[3].jpg'>";
+                    }
+                ?>
             </td>
          <?php $choice_result_set = mysql_fetch_array($choice_result_set_obj);
             $j++;

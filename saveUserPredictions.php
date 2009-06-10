@@ -44,4 +44,6 @@ if($saveOrUpdated=='save')
     echo "Your bettins are saved. Thankyou";
 else
     echo "Your bettins are updated. Thankyou";
+
+
 ?>
