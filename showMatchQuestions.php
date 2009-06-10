@@ -15,7 +15,7 @@ $i=0;
 <input type="hidden" name="matchId" value="<?php echo $matchId; ?>"/>
 <table border="0">
 <?php
-while($i<mysql_num_rows($result_set_obj)){
+while($i<1){
 
     //echo questions with choices
     $qid = $result_set[0];

@@ -83,6 +83,23 @@ insert into teams values ('WI','West Indies');
 
 insert into matches (team1,team2,schedule_time,location) values ('ENG','NET','2009-06-05 16:30:00','Lord\'s, London');
 insert into matches (team1,team2,schedule_time,location) values ('NZ','SCO','2009-06-06 09:00:00','Kennington Oval, London');
+--newly added
+insert into matches (team1,team2,schedule_time,location) values ('SLA','WI','2009-06-10 12:30:00',' Nottingham, London');
+insert into matches (team1,team2,schedule_time,location) values ('IND','IRE','2009-06-10 16:30:00',' Nottingham, London');
+insert into matches (team1,team2,schedule_time,location) values ('NZ','IRE','2009-06-11 12:30:00',' Nottingham, London');
+insert into matches (team1,team2,schedule_time,location) values ('ENG','SA','2009-06-11 16:30:00',' Nottingham, London');
+insert into matches (team1,team2,schedule_time,location) values ('PAK','SLA','2009-06-12 12:30:00','Lord\'s, London');
+insert into matches (team1,team2,schedule_time,location) values ('IND','WI','2009-06-12 16:30:00','Lord\'s, London');
+insert into matches (team1,team2,schedule_time,location) values ('SA','WI','2009-06-13 12:30:00','Lord\'s, London');
+insert into matches (team1,team2,schedule_time,location) values ('NZ','PAK','2009-06-13 16:30:00','Oval, London');
+insert into matches (team1,team2,schedule_time,location) values ('IRE','SLA','2009-06-14 12:30:00','Lord\'s, London');
+insert into matches (team1,team2,schedule_time,location) values ('ENG','IND','2009-06-14 16:30:00','Lord\'s, London');
+insert into matches (team1,team2,schedule_time,location) values ('IRE','PAK','2009-06-15 12:30:00','Oval, London');
+insert into matches (team1,team2,schedule_time,location) values ('ENG','WI','2009-06-15 16:30:00','Oval, London');
+insert into matches (team1,team2,schedule_time,location) values ('NZ','SLA','2009-06-16 12:30:00','Nittingham, London');
+insert into matches (team1,team2,schedule_time,location) values ('SA','IND','2009-06-16 16:30:00','Nittingham, London');
+
+
 
 insert into choices (qid,match_id,choice) values (1,1,'ENG');
 insert into choices (qid,match_id,choice) values (1,1,'NET');
@@ -97,6 +114,48 @@ insert into choices (qid,match_id,choice) values (2,2,'Brendon McCullum');
 insert into choices (qid,match_id,choice) values (2,2,'Daniel Vettori');
 insert into choices (qid,match_id,choice) values (2,2,'Ross Taylor');
 insert into choices (qid,match_id,choice) values (2,2,'Jesse Ryder');
+
+insert into choices (qid,match_id,choice) values (1,3,'SLA');
+insert into choices (qid,match_id,choice) values (1,3,'WI');
+
+insert into choices (qid,match_id,choice) values (1,4,'IND');
+insert into choices (qid,match_id,choice) values (1,4,'IRE');
+
+insert into choices (qid,match_id,choice) values (1,5,'IRE');
+insert into choices (qid,match_id,choice) values (1,5,'NZ');
+
+insert into choices (qid,match_id,choice) values (1,6,'ENG');
+insert into choices (qid,match_id,choice) values (1,6,'SA');
+
+insert into choices (qid,match_id,choice) values (1,7,'PAK');
+insert into choices (qid,match_id,choice) values (1,7,'SLA');
+
+insert into choices (qid,match_id,choice) values (1,8,'IND');
+insert into choices (qid,match_id,choice) values (1,8,'WI');
+
+insert into choices (qid,match_id,choice) values (1,9,'SA');
+insert into choices (qid,match_id,choice) values (1,9,'WI');
+
+insert into choices (qid,match_id,choice) values (1,10,'NZ');
+insert into choices (qid,match_id,choice) values (1,10,'PAK');
+
+insert into choices (qid,match_id,choice) values (1,12,'IRE');
+insert into choices (qid,match_id,choice) values (1,12,'SLA');
+
+insert into choices (qid,match_id,choice) values (1,13,'ENG');
+insert into choices (qid,match_id,choice) values (1,13,'IND');
+
+insert into choices (qid,match_id,choice) values (1,14,'IRE');
+insert into choices (qid,match_id,choice) values (1,14,'PAK');
+
+insert into choices (qid,match_id,choice) values (1,15,'ENG');
+insert into choices (qid,match_id,choice) values (1,15,'WI');
+
+insert into choices (qid,match_id,choice) values (1,16,'NZ');
+insert into choices (qid,match_id,choice) values (1,16,'SLA');
+
+insert into choices (qid,match_id,choice) values (1,17,'IND');
+insert into choices (qid,match_id,choice) values (1,17,'SA');
 
 
 
