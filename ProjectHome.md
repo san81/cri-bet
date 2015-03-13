@@ -1,0 +1,1 @@
+takes betting from user and makes them to make interesting bettings over their choices
